@@ -1,155 +1,244 @@
 
-
-.carousel .carousel-slides-container {
+.carousel.block {
   position: relative;
+  min-height: clamp(420px, 62vh, 760px);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.carousel .carousel-slides,
-.carousel .carousel-slide-indicators {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
-.carousel .carousel-slides {
-  display: flex;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  overflow: scroll clip;
-}
-
-.carousel .carousel-slides::-webkit-scrollbar {
-  display: none;
-}
-
-.carousel .carousel-slide {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  position: relative;
-  width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
-}
-
-.carousel .carousel-slide:has(.carousel-slide-content[data-align='center']) {
-  align-items: center;
-}
-
-.carousel .carousel-slide:has(.carousel-slide-content[data-align='right']) {
-  align-items: flex-end;
-}
-
-.carousel .carousel-slide .carousel-slide-image picture {
+/* Each author-created slide */
+.carousel.block .carousel__slide {
   position: absolute;
   inset: 0;
-}
-
-.carousel .carousel-slide .carousel-slide-image picture > img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.carousel .carousel-slide .carousel-slide-content {
-  z-index: 1;
-  margin: 68px;
-  padding: 16px;
-  color: white;
-  background-color: rgb(19 19 19 / 75%);
-  position: relative;
-  width: var(--slide-content-width, auto);
-}
-
-.carousel .carousel-slide-indicators {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px 12px;
-  padding: 12px;
-  background-color: var(--light-color);
-  line-height: 0;
-}
-
-.carousel .carousel-slide-indicator button {
-  width: 24px;
-  height: 24px;
-  margin: 0;
-  padding: 0;
-  border-radius: 50%;
-  background-color: #8F8F8F;
-  transition: background-color 0.2s;
-}
-
-.carousel .carousel-slide-indicator button:disabled,
-.carousel .carousel-slide-indicator button:hover,
-.carousel .carousel-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
-}
-
-.carousel .carousel-navigation-buttons {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
-  right: 12px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: single column overlay */
   align-items: center;
-  justify-content: space-between;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.02);
+  transition: opacity .6s ease, visibility .6s ease, transform .6s ease;
+}
+
+
+/* Activate current slide */
+.carousel.block .carousel__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+
+/* Media column (first inner div) */
+.carousel.block .carousel__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+
+/* Make the <picture>/<img> cover the area */
+.carousel.block .carousel__media picture,
+.carousel.block .carousel__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* ensure full-bleed background look */
+}
+
+
+/* Dark overlay for readability */
+.carousel.block .carousel__slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(0 0 0 / 45%), rgb(0 0 0 / 45%));
   z-index: 1;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.carousel .carousel-navigation-buttons button {
+
+/* Body column (second inner div) */
+.carousel.block .carousel__body {
   position: relative;
+  z-index: 2; /* above overlay */
+  width: min(1100px, 92vw);
+  margin-left: clamp(16px, 7vw, 120px);
+  color: #fff;
+}
+
+
+/* Typography to match your screenshot */
+.carousel.block .carousel__body h2 {
+  margin: 0 0 8px;
+  font-weight: 800;
+  font-size: clamp(22px, 5vw, 42px);
+  line-height: 1.15;
+}
+
+
+.carousel.block .carousel__body p {
+  margin: 0 0 14px;
+  font-size: clamp(14px, 2.2vw, 18px);
+  line-height: 1.5;
+  max-width: 70ch;
+  opacity: .95;
+}
+
+
+/* Optional lists/CTAs/social if you add them inside the second <div> */
+.carousel.block .features {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 16px 0 18px;
+}
+
+.carousel.block .features li {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 35%);
+  border: 1px solid rgb(255 255 255 / 18%);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.carousel.block .features li::before {
+  content: "✓";
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: #ff2a52;
+  color: #fff;
+  font-size: 12px;
+}
+
+
+.carousel.block .buttons {
+  display: flex;
+  gap: 12px;
+  margin: 6px 0 16px;
+}
+
+.carousel.block .buttons .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  text-decoration: none;
+  color: #fff;
+  transition: transform .18s ease, background .18s ease, color .18s ease;
+}
+
+.carousel.block .buttons .btn--solid {
+  background: #ff2a52;
+}
+
+.carousel.block .buttons .btn--solid:hover {
+  transform: translateY(-2px);
+  background: #ff4469;
+}
+
+.carousel.block .buttons .btn--ghost {
+  background: transparent;
+  border-color: rgb(255 255 255 / 55%);
+}
+
+.carousel.block .buttons .btn--ghost:hover {
+  transform: translateY(-2px);
+  background: rgb(255 255 255 / 10%);
+}
+
+
+.carousel.block .social {
+  display: flex;
+  gap: 10px;
+}
+
+.carousel.block .social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #ff2a52;
+  transition: transform .18s ease, background .18s ease;
+  text-decoration: none;
+}
+
+.carousel.block .social a:hover {
+  transform: translateY(-2px);
+  background: #ff4469;
+}
+
+
+/* Arrows */
+.carousel.block .carousel__nav {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  pointer-events: none; /* only buttons receive events */
+  z-index: 3;
+}
+
+.carousel.block .carousel__btn {
+  pointer-events: auto;
+  place-self: center start; /* replaces align-self + justify-self */
+  margin-left: 10px;
   width: 44px;
   height: 44px;
-  margin: 0;
-  border-radius: 50%;
-  padding: 0;
-  background-color: rgb(19 19 19 / 25%);
-  transition: background-color 0.2s;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 45%);
+  border: 1px solid rgb(255 255 255 / 20%);
+  color: #ff2a52;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease;
 }
 
-.carousel .carousel-navigation-buttons button:hover,
-.carousel .carousel-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+.carousel.block .carousel__btn:hover {
+  background: rgb(0 0 0 / 65%);
+  transform: scale(1.05);
 }
 
-.carousel .carousel-navigation-buttons button::after {
-  display: block;
-  content: '';
-  border: 2px solid;
-  border-bottom: 0;
-  border-left: 0;
-  height: 12px;
-  width: 12px;
+.carousel.block .carousel__btn.next {
+  justify-self: end;
+  margin-right: 10px;
+}
+
+
+/* Slide index like "2 / 3" */
+.carousel.block .carousel__index {
   position: absolute;
-  top: 50%;
-  left: calc(50% + 2px);
-  transform: translate(-50%, -50%) rotate(-135deg);
+  right: 12px;
+  bottom: 10px;
+  z-index: 3;
+  color: #fff;
+  background: rgb(0 0 0 / 45%);
+  border: 1px solid rgb(255 255 255 / 15%);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
 }
 
-.carousel .carousel-navigation-buttons button.slide-next::after {
-  transform: translate(-50%, -50%) rotate(45deg);
-  left: calc(50% - 2px);
-}
 
-@media (width >= 600px) {
-  .carousel .carousel-navigation-buttons {
-    left: 24px;
-    right: 24px;
-  }
-
-  .carousel .carousel-slide .carousel-slide-content {
-    --slide-content-width: calc((100% - 184px) / 2);
-
-    margin: 92px;
-  }
-
-  .carousel .carousel-slide .carousel-slide-content[data-align='justify'] {
-    --slide-content-width: auto;
+/* Wider screens: keep text on left, image covering bg */
+@media (width >= 900px) {
+  .carousel.block .carousel__body {
+    margin-left: clamp(20px, 9vw, 140px);
   }
 }
