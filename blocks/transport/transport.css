@@ -1,0 +1,59 @@
+.transport > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+ 
+.transport picture img {
+  width: 100%;
+  border-radius: 8px;
+}
+ 
+.transport h2 {
+  font-size: 40px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+ 
+.transport h2 span {
+  color: #ff5a5f;
+}
+ 
+.transport .subtitle {
+  color: #ff5a5f;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin: 10px 0;
+}
+ 
+.transport p {
+  color: #777;
+  font-size: 15px;
+}
+ 
+.transport .author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+ 
+.transport .author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+ 
+.transport .learn-more {
+  display: inline-block;
+  margin-top: 20px;
+  color: #ff5a5f;
+  font-weight: 600;
+  text-decoration: none;
+}
+ 
+.transport .learn-more:hover {
+  text-decoration: underline;
+}
+ 

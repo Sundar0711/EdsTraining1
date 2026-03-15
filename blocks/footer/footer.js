@@ -1,20 +1,29 @@
-import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
-
-/**
- * loads and decorates the footer
- * @param {Element} block The footer block element
- */
-export default async function decorate(block) {
-  // load footer as fragment
-  const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
-  const fragment = await loadFragment(footerPath);
-
-  // decorate footer DOM
-  block.textContent = '';
-  const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
-
-  block.append(footer);
+export default function decorate(block) {
+ 
+  const cols = [...block.children];
+ 
+  if (cols.length) {
+    block.classList.add('footer-container');
+  }
+ 
+  const gallery = cols[3];
+ 
+  if (gallery) {
+    gallery.classList.add('footer-gallery');
+  }
+ 
+  const bottom = document.createElement('div');
+  bottom.className = 'footer-bottom';
+ 
+  bottom.innerHTML = `
+    <p>Copyright © transpo all rights reserved.</p>
+    <div>
+      <a href="#">Home</a>
+      <a href="#">News</a>
+      <a href="#">Contact</a>
+    </div>
+  `;
+ 
+  block.append(bottom);
+ 
 }

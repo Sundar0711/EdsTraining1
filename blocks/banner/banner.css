@@ -1,0 +1,47 @@
+.banner {
+  position: relative;
+  padding: 80px 60px;
+  border-radius: 6px;
+  overflow: hidden;
+  color: white;
+}
+ 
+.banner picture img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+ 
+.banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10,30,60,0.75);
+  z-index: -1;
+}
+ 
+.banner h2 {
+  font-size: 36px;
+  max-width: 700px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+ 
+.banner a {
+  display: inline-block;
+  margin-top: 25px;
+  background: #ff5a5f;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+}
+ 
+.banner a:hover {
+  background: #e14b4f;
+}
+ 
